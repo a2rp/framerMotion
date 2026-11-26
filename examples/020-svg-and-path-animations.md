@@ -1,6 +1,6 @@
 # SVG and path animations example
 
-This example draws a simple route inside a responsive SVG. A highlighted point follows the route through a motion path, while a button changes the viewBox to focus the route. The route stays visible and named when reduced motion is preferred.
+This example draws a simple route inside a responsive SVG. A static endpoint marker appears after the main path reveal, and a button changes the viewBox to focus the route. The route stays visible and named when reduced motion is preferred.
 
 ## Setup
 
@@ -57,8 +57,7 @@ export function AnimatedRoute() {
       >
         <title id="route-title">Route with two connected paths</title>
         <desc id="route-description">
-          A purple route travels from the lower left to the upper right, with a
-          branch near the middle and a moving point along the main route.
+          A purple route travels from the lower left to the upper right, with a branch near the middle and an orange marker at the destination.
         </desc>
 
         <motion.path
@@ -101,16 +100,15 @@ export function AnimatedRoute() {
         />
 
         <motion.circle
-          cx="70"
-          cy="220"
+          cx="530"
+          cy="85"
           r="9"
           fill="#f97316"
-          initial={shouldReduceMotion ? { pathLength: 1 } : { pathLength: 0 }}
-          animate={{ pathLength: 1 }}
-          transition={{ duration, ease: "linear" }}
-          style={{
-            offsetPath: `path("${route}")`,
-            offsetDistance: shouldReduceMotion ? "100%" : "100%",
+          initial={{ opacity: 0, scale: 0.6 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{
+            duration: shouldReduceMotion ? 0 : 0.25,
+            delay: shouldReduceMotion ? 0 : duration,
           }}
         />
       </motion.svg>
@@ -132,11 +130,9 @@ export function AnimatedRoute() {
 }
 ~~~
 
-## Important note about the moving point
+## Endpoint marker
 
-The `offsetPath`/`offsetDistance` feature animates a shape along a CSS motion path where supported. For a reliable cross-browser learning exercise, first verify it in the target browsers. The route drawing itself uses Motion's SVG `pathLength` feature and does not depend on the moving point.
-
-If the point is not positioned correctly, use an SVG-specific path-following implementation or replace it with a static marker. Do not leave the marker at a misleading location.
+The orange marker sits at the route destination and appears after the main route finishes drawing. It is a fixed visual marker, not a point that travels along the path. A moving point would need an animated offset distance and a browser-compatible motion path, so this example keeps the behavior explicit and dependable.
 
 ## How it works
 
@@ -160,7 +156,7 @@ The route graphic has a title and description. If it is used only as decoration 
 - Change stroke width, line caps, and line joins to match the design.
 - Add a shape whose `d` value changes between compatible path descriptions.
 - Use `pathOffset` with `pathLength` for a partial progress segment.
-- Replace the optional moving point with a static marker if path following is not supported by the chosen browser.
+- Move the endpoint marker and update the SVG description to match.
 - Animate a circle's `r` or a rect's `attrX` to practice SVG attributes.
 
 ## Common mistakes
