@@ -4,15 +4,15 @@
 
 It controls timing between a parent target and variant animations on its descendants. The parent schedules the group while each child supplies its own visual target.
 
-## 2. How do §delayChildren§ and §staggerChildren§ differ?
+## 2. How do `delayChildren` and `staggerChildren` differ?
 
-§delayChildren§ waits before the group starts. §staggerChildren§ offsets each child's start to create a cascade. Values are measured in seconds.
+`delayChildren` waits before the group starts. `staggerChildren` offsets each child's start to create a cascade. Values are measured in seconds.
 
-## 3. What does §when: "beforeChildren"§ mean?
+## 3. What does `when: "beforeChildren"` mean?
 
 The parent target runs before child animations start. Put it in the transition for the variant that needs this order.
 
-## 4. What does §when: "afterChildren"§ mean?
+## 4. What does `when: "afterChildren"` mean?
 
 The parent waits for child animations to finish. It is useful when contents should leave before a container collapses.
 
@@ -20,17 +20,17 @@ The parent waits for child animations to finish. It is useful when contents shou
 
 Yes. Put transition settings on each variant. An entering group can stagger forward while the hidden state uses another origin or direction.
 
-## 6. Why use §stagger()§?
+## 6. Why use `stagger()`?
 
-It creates child start offsets with options for origin and distribution. Use it as a §delayChildren§ value when first-to-last order is not appropriate.
+It creates child start offsets with options for origin and distribution. Use it as a `delayChildren` value when first-to-last order is not appropriate.
 
 ## 7. How do I stagger from the last item?
 
-Set §delayChildren: stagger(0.06, { from: "last" })§. Confirm the rendered order matches the intended reading order.
+Set `delayChildren: stagger(0.06, { from: "last" })`. Confirm the rendered order matches the intended reading order.
 
 ## 8. How do I make a center-out reveal?
 
-Set §delayChildren: stagger(0.06, { from: "center" })§. Items further from the center receive later offsets.
+Set `delayChildren: stagger(0.06, { from: "center" })`. Items further from the center receive later offsets.
 
 ## 9. Do child delays add to the stagger?
 

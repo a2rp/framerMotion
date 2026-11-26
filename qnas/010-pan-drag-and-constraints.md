@@ -6,13 +6,13 @@ Pan recognizes pointer movement and reports it through callbacks. Drag also appl
 
 ## 2. Which callbacks are available for pan?
 
-Use lifecycle callbacks such as §onPanStart§, §onPan§, and §onPanEnd§. They receive a pointer event and gesture information including point, offset, and velocity.
+Use lifecycle callbacks such as `onPanStart`, `onPan`, and `onPanEnd`. They receive a pointer event and gesture information including point, offset, and velocity.
 
 ## 3. How do I limit movement to one axis?
 
-Set §drag="x"§ for horizontal movement or §drag="y"§ for vertical movement. This is clearer than allowing both axes and manually resetting one.
+Set `drag="x"` for horizontal movement or `drag="y"` for vertical movement. This is clearer than allowing both axes and manually resetting one.
 
-## 4. What does an object passed to §dragConstraints§ mean?
+## 4. What does an object passed to `dragConstraints` mean?
 
 It defines pixel bounds relative to the draggable element's origin, such as left, right, top, and bottom limits.
 
@@ -20,25 +20,25 @@ It defines pixel bounds relative to the draggable element's origin, such as left
 
 Pass a React ref pointing to the container. Motion measures the container and draggable element and constrains the movement to that measured area.
 
-## 6. What does §dragElastic§ control?
+## 6. What does `dragElastic` control?
 
 It controls how far the element can move beyond its constraints before returning. Zero removes elastic overshoot; larger values permit more stretch.
 
-## 7. What does §dragMomentum§ control?
+## 7. What does `dragMomentum` control?
 
 It controls whether the pointer's release velocity continues into an inertia animation. Set it to false for predictable stopping behavior.
 
-## 8. When should I use §dragTransition§?
+## 8. When should I use `dragTransition`?
 
 Use it to customize the release inertia and bounce when momentum is enabled. Tune it for the perceived weight of the surface, not as a replacement for constraints.
 
 ## 9. Why might dragging on a phone scroll the page?
 
-The browser may interpret touch movement as scrolling. Set an appropriate §touch-action§ value on the gesture surface, limited to the axis or region that needs it.
+The browser may interpret touch movement as scrolling. Set an appropriate `touch-action` value on the gesture surface, limited to the axis or region that needs it.
 
 ## 10. How can I start dragging from a separate handle?
 
-Create controls with §useDragControls§, pass them to the draggable element, and call §controls.start(event)§ from the handle's §onPointerDown§. Use §dragListener={false}§ to disable the draggable's own start listener.
+Create controls with `useDragControls`, pass them to the draggable element, and call `controls.start(event)` from the handle's `onPointerDown`. Use `dragListener={false}` to disable the draggable's own start listener.
 
 ## 11. Is a custom drag interaction keyboard-accessible by default?
 

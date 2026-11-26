@@ -4,15 +4,15 @@
 
 It controls how entering and exiting children relate to each other and to layout. It is a presence strategy, not simply a transition duration.
 
-## 2. What does §mode="sync"§ do?
+## 2. What does `mode="sync"` do?
 
 It is the default. Entering and exiting children animate at the same time. If their layouts overlap, manage that overlap or use another mode.
 
-## 3. When should I use §mode="wait"§?
+## 3. When should I use `mode="wait"`?
 
 Use it when one new child should wait until the old child exits, such as a one-at-a-time slideshow. Wait mode supports only one child at a time.
 
-## 4. What does §mode="popLayout"§ do?
+## 4. What does `mode="popLayout"` do?
 
 It removes exiting children from normal layout immediately so surrounding elements can reflow while the old child continues animating. It is useful with layout animation in lists.
 

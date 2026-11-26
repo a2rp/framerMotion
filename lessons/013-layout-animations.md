@@ -1,6 +1,6 @@
 # Layout animations
 
-A layout animation smoothly follows a change in an element's measured size or position after a React render. Add the §layout§ prop to a Motion component when its layout should animate automatically.
+A layout animation smoothly follows a change in an element's measured size or position after a React render. Add the `layout` prop to a Motion component when its layout should animate automatically.
 
 ## Opt in to layout measurement
 
@@ -39,7 +39,7 @@ It can also be combined with ordinary animation targets. For example, opacity ca
 
 ## Transform-based animation and scale correction
 
-Motion performs layout animation with transforms for performance. When an element changes size, a scale transform may stretch its contents, border radius, or shadow. Add layout to children that should be independently corrected. For text or images changing aspect ratio, §layout="position"§ can animate position while letting the new size snap to its final value.
+Motion performs layout animation with transforms for performance. When an element changes size, a scale transform may stretch its contents, border radius, or shadow. Add layout to children that should be independently corrected. For text or images changing aspect ratio, `layout="position"` can animate position while letting the new size snap to its final value.
 
 Borders can appear stretched because border width affects layout and cannot be scaled below one device pixel. A nested element or pseudo-element can act as a border if that distortion is visible. Avoid unnecessary nested layout props; each measured element adds work.
 
@@ -47,18 +47,18 @@ Inline elements do not receive transforms as expected. Use an element with a lay
 
 ## Scroll and fixed positioning
 
-For layout animation inside a scrollable Motion container, use §layoutScroll§ on the scrolling ancestor so Motion can account for its scroll offset. For children in a fixed-position Motion root, use §layoutRoot§ so page scroll is accounted for while measuring the descendants. Later chapters connect layout measurement with shared elements and groups.
+For layout animation inside a scrollable Motion container, use `layoutScroll` on the scrolling ancestor so Motion can account for its scroll offset. For children in a fixed-position Motion root, use `layoutRoot` so page scroll is accounted for while measuring the descendants. Later chapters connect layout measurement with shared elements and groups.
 
 ## Choose the right layout behavior
 
 | Desired behavior | Approach |
 | --- | --- |
-| Animate size and position | §layout§ |
-| Animate position but let size update immediately | §layout="position"§ |
-| Keep children from appearing stretched | Add §layout§ to affected children |
-| Animate a transform or opacity target directly | Use §animate§ or a gesture target |
-| Measure within a scroll container | §layoutScroll§ on the scrollable Motion ancestor |
-| Measure fixed-position descendants | §layoutRoot§ on a fixed Motion root |
+| Animate size and position | `layout` |
+| Animate position but let size update immediately | `layout="position"` |
+| Keep children from appearing stretched | Add `layout` to affected children |
+| Animate a transform or opacity target directly | Use `animate` or a gesture target |
+| Measure within a scroll container | `layoutScroll` on the scrollable Motion ancestor |
+| Measure fixed-position descendants | `layoutRoot` on a fixed Motion root |
 
 Layout animation does not mean every CSS property is directly interpolated. Motion measures the geometry and uses transforms to move between states. Use direct animation for properties such as opacity or color, and layout for the geometry produced by the render.
 

@@ -4,9 +4,9 @@ This example removes notices from React state and animates each keyed item out b
 
 ## Setup
 
-Install Motion with §npm install motion§. Save as §src/DismissibleNotices.jsx§ and render §<DismissibleNotices />§.
+Install Motion with `npm install motion`. Save as `src/DismissibleNotices.jsx` and render `<DismissibleNotices />`.
 
-## §src/DismissibleNotices.jsx§
+## `src/DismissibleNotices.jsx`
 
 ~~~jsx
 import { useState } from "react";

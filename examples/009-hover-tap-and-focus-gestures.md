@@ -4,9 +4,9 @@ This example adds hover, press, and focus-visible feedback to a native button. R
 
 ## Setup
 
-Install Motion in the React application with §npm install motion§. Save this component as §src/GestureButton.jsx§ and render §<GestureButton />§.
+Install Motion in the React application with `npm install motion`. Save this component as `src/GestureButton.jsx` and render `<GestureButton />`.
 
-## §src/GestureButton.jsx§
+## `src/GestureButton.jsx`
 
 ~~~jsx
 import { useState } from "react";
@@ -48,7 +48,7 @@ export function GestureButton() {
 
 ## Walkthrough
 
-The native button provides role, focus, and standard activation. §whileHover§ gives subtle pointer feedback; §whileTap§ shrinks the control during the press; §whileFocus§ makes keyboard focus prominent. §onClick§ updates saved state once. The status text makes the result visible and announces changes politely.
+The native button provides role, focus, and standard activation. `whileHover` gives subtle pointer feedback; `whileTap` shrinks the control during the press; `whileFocus` makes keyboard focus prominent. `onClick` updates saved state once. The status text makes the result visible and announces changes politely.
 
 ## Expected result and checks
 
@@ -62,9 +62,9 @@ Hover lifts the button slightly. Pressing it scales down temporarily. Keyboard n
 
 ## Variations and common mistakes
 
-- Add a native §disabled§ attribute for a truly disabled control; opacity alone does not disable it.
+- Add a native `disabled` attribute for a truly disabled control; opacity alone does not disable it.
 - Keep a clear focus cue even if its color animation does not run.
-- Do not call the save action from both §onClick§ and §onTap§.
+- Do not call the save action from both `onClick` and `onTap`.
 - Keep scale changes small to avoid obscuring nearby content.
 - Do not hide a tooltip or action so it is reachable only on hover.
 - If saved status is reversible, model that state explicitly instead of keeping a one-way animation.

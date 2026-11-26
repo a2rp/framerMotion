@@ -22,7 +22,7 @@ Add layout to affected Motion children so they can correct their own scale. For 
 
 ## 6. When should I use layout position?
 
-Use §layout="position"§ when an element should move to its new position but its size should update directly instead of being scale-animated.
+Use `layout="position"` when an element should move to its new position but its size should update directly instead of being scale-animated.
 
 ## 7. Can layout and opacity animation be combined?
 

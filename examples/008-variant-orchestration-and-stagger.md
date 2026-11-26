@@ -4,9 +4,9 @@ This interactive list demonstrates a center-origin stagger. The parent selects t
 
 ## Setup
 
-Install Motion in a React app with §npm install motion§. Save this as §src/StaggeredList.jsx§ and render §<StaggeredList />§.
+Install Motion in a React app with `npm install motion`. Save this as `src/StaggeredList.jsx` and render `<StaggeredList />`.
 
-## §src/StaggeredList.jsx§
+## `src/StaggeredList.jsx`
 
 ~~~jsx
 import { useState } from "react";
@@ -60,17 +60,17 @@ export function StaggeredList() {
 
 ## Walkthrough and expected result
 
-The parent and children share §hidden§ and §visible§ labels. The parent transition calls §stagger(0.08, { from: "center" })§, so children begin at different offsets radiating from the middle. Children contain no separate delay. React chooses the group label and can reorder the array.
+The parent and children share `hidden` and `visible` labels. The parent transition calls `stagger(0.08, { from: "center" })`, so children begin at different offsets radiating from the middle. Children contain no separate delay. React chooses the group label and can reorder the array.
 
-§initial={false}§ starts directly at the visible target. Click Hide list, then Reveal list to trigger the sequence. Reverse order changes the actual item order, not only the stagger origin. Stable string keys help React track items during reordering.
+`initial={false}` starts directly at the visible target. Click Hide list, then Reveal list to trigger the sequence. Reverse order changes the actual item order, not only the stagger origin. Stable string keys help React track items during reordering.
 
 The center items begin first and the items further away follow. Hiding selects hidden targets. The list contains plain text, so its hidden items are not keyboard controls.
 
 ## Practice and common mistakes
 
-- Change the origin to §"first"§ and compare.
+- Change the origin to `"first"` and compare.
 - Add a short group delay before the stagger.
-- Add §when: "beforeChildren"§ and observe the parent-first sequence.
+- Add `when: "beforeChildren"` and observe the parent-first sequence.
 - Remove the stagger while considering reduced-motion behavior.
 - A child needs to be a Motion component and use the active label.
 - Large intervals make long lists slow.

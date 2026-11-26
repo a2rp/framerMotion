@@ -22,21 +22,21 @@ const itemVariants = {
 
 The parent does not repeat every child's target. This makes it possible to change group timing without copying delays into each item.
 
-## Parent order with §when§
+## Parent order with `when`
 
-Add §when§ inside a variant transition to sequence the parent relative to descendants:
+Add `when` inside a variant transition to sequence the parent relative to descendants:
 
-- §"beforeChildren"§ runs the parent target before child animations.
-- §"afterChildren"§ waits for children before running the parent target.
+- `"beforeChildren"` runs the parent target before child animations.
+- `"afterChildren"` waits for children before running the parent target.
 - Without sequencing, parent and children can overlap.
 
 Define transitions per variant when entering and exiting need different order. A panel can appear before its contents enter, then wait for those contents to leave before it collapses.
 
 ## Delay and stagger
 
-§delayChildren§ adds a pause before the group starts. §staggerChildren§ offsets successive child start times. A stagger changes when each child begins, not the duration of its animation.
+`delayChildren` adds a pause before the group starts. `staggerChildren` offsets successive child start times. A stagger changes when each child begins, not the duration of its animation.
 
-For an origin other than the first child, use §stagger()§ from §motion/react§:
+For an origin other than the first child, use `stagger()` from `motion/react`:
 
 ~~~jsx
 import { motion, stagger } from "motion/react";
@@ -56,15 +56,15 @@ Estimate the last child's start by adding the group delay to the stagger offset 
 
 ## Reverse and state-specific sequences
 
-A distinct sequence per label can make a group feel intentional. Use another §stagger()§ origin or §staggerDirection§ on the hidden state. Avoid stacking a long parent delay, a large stagger, and long child delays: all contribute to perceived waiting.
+A distinct sequence per label can make a group feel intentional. Use another `stagger()` origin or `staggerDirection` on the hidden state. Avoid stacking a long parent delay, a large stagger, and long child delays: all contribute to perceived waiting.
 
 | Goal | Setting |
 | --- | --- |
-| Pause before the group | §delayChildren§ |
-| Cascade children | §staggerChildren§ |
-| Choose the sequence origin | §delayChildren: stagger(interval, { from: ... })§ |
-| Parent before children | §when: "beforeChildren"§ |
-| Children before parent | §when: "afterChildren"§ |
+| Pause before the group | `delayChildren` |
+| Cascade children | `staggerChildren` |
+| Choose the sequence origin | `delayChildren: stagger(interval, { from: ... })` |
+| Parent before children | `when: "beforeChildren"` |
+| Children before parent | `when: "afterChildren"` |
 | Animate layout reflow | Layout animation, covered later |
 
 Orchestration affects timing, not React state and not layout measurement. React still decides which state is active. Use layout animation separately when elements reflow.
@@ -72,7 +72,7 @@ Orchestration affects timing, not React state and not layout measurement. React 
 ## Common problems and good practice
 
 - Children do not follow if they are not Motion components or their labels do not match.
-- A parent waits unexpectedly because §when§ is set on the active variant.
+- A parent waits unexpectedly because `when` is set on the active variant.
 - Long delays make a small group feel frozen. Keep timing in the parent where possible.
 - A new React state retargets active animation. A stagger is not a workflow engine.
 - Essential text should not wait behind decoration.
@@ -81,7 +81,7 @@ Orchestration affects timing, not React state and not layout measurement. React 
 
 ## Recap and practice
 
-A parent transition coordinates descendants with §when§, §delayChildren§, §staggerChildren§, or §stagger()§. Keep the sequence brief and test the entire group.
+A parent transition coordinates descendants with `when`, `delayChildren`, `staggerChildren`, or `stagger()`. Keep the sequence brief and test the entire group.
 
 Practice with six items: reveal from the first, then from the center, then reverse the exit order. Estimate when the final child begins. Try a reduced-motion setting and decide what timing to remove.
 

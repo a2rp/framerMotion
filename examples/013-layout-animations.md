@@ -4,9 +4,9 @@ This example filters a card grid. React changes which cards render; Motion's lay
 
 ## Setup
 
-Install Motion with §npm install motion§. Save as §src/AnimatedFilterGrid.jsx§ and render §<AnimatedFilterGrid />§.
+Install Motion with `npm install motion`. Save as `src/AnimatedFilterGrid.jsx` and render `<AnimatedFilterGrid />`.
 
-## §src/AnimatedFilterGrid.jsx§
+## `src/AnimatedFilterGrid.jsx`
 
 ~~~jsx
 import { useState } from "react";
@@ -80,7 +80,7 @@ The item uses an opacity and scale entry/exit target. Its layout transition has 
 Select Animation or React. Cards that remain move into their new positions, and removed cards fade out. Select All to restore the complete grid.
 
 - Remove layout from the list items and compare the abrupt reflow.
-- Use §layout="position"§ on cards to avoid scaling their contents.
+- Use `layout="position"` on cards to avoid scaling their contents.
 - Change the grid minimum width and test responsive wrapping.
 - Add layout to a nested text block only if that content needs scale correction.
 

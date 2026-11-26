@@ -1,49 +1,64 @@
 # Pan, drag, and constraints example
 
-This example confines a tile to a measured panel. It disables momentum to make the stopping point predictable and includes keyboard nudge buttons as an alternative to pointer dragging.
+This example confines a tile to a measured panel. Pointer dragging and keyboard nudge buttons both move the same tile state, so there is a working non-pointer alternative.
 
 ## Setup
 
-Install Motion with §npm install motion§. Save this component as §src/ConstrainedTile.jsx§ and render §<ConstrainedTile />§.
+Install Motion with `npm install motion`. Save as `src/ConstrainedTile.jsx` and render `<ConstrainedTile />`.
 
-## §src/ConstrainedTile.jsx§
+## `src/ConstrainedTile.jsx`
 
 ~~~jsx
 import { useRef, useState } from "react";
 import { motion } from "motion/react";
 
+const LIMIT = 80;
+
+function clamp(value) {
+  return Math.max(-LIMIT, Math.min(LIMIT, value));
+}
+
 export function ConstrainedTile() {
   const bounds = useRef(null);
-  const [announcement, setAnnouncement] = useState("Tile is ready to move.");
+  const dragStart = useRef(0);
+  const [x, setX] = useState(0);
 
-  function nudge(direction) {
-    setAnnouncement(direction === "left" ? "Move the tile left with the pointer." : "Move the tile right with the pointer.");
+  function nudge(amount) {
+    setX((current) => clamp(current + amount));
+  }
+
+  function finishDrag(event, info) {
+    setX(clamp(dragStart.current + info.offset.x));
   }
 
   return (
     <main style={{ maxWidth: 620, margin: "3rem auto", padding: 20, fontFamily: "system-ui" }}>
       <h1>Constrained drag</h1>
-      <p>Drag the tile inside the panel. Use the buttons as a keyboard alternative.</p>
+      <p>Drag the tile or use the buttons to move it horizontally.</p>
       <div
         ref={bounds}
         style={{
           position: "relative",
           display: "grid",
           placeItems: "center",
-          height: 240,
+          height: 220,
+          overflow: "hidden",
           border: "2px dashed #64748b",
           borderRadius: 14,
           background: "#f1f5f9",
-          touchAction: "pan-y",
         }}
       >
         <motion.div
-          drag
+          drag="x"
           dragConstraints={bounds}
-          dragElastic={0.12}
+          dragElastic={0.08}
           dragMomentum={false}
-          whileDrag={{ scale: 1.06, cursor: "grabbing" }}
-          onDragEnd={() => setAnnouncement("Tile movement ended.")}
+          animate={{ x }}
+          onDragStart={() => {
+            dragStart.current = x;
+          }}
+          onDragEnd={finishDrag}
+          whileDrag={{ scale: 1.04 }}
           style={{
             width: 110,
             height: 80,
@@ -62,10 +77,17 @@ export function ConstrainedTile() {
         </motion.div>
       </div>
       <div style={{ display: "flex", gap: 8, marginTop: 14 }}>
-        <button type="button" onClick={() => nudge("left")}>Move left</button>
-        <button type="button" onClick={() => nudge("right")}>Move right</button>
+        <button type="button" onClick={() => nudge(-20)} disabled={x <= -LIMIT}>
+          Move left
+        </button>
+        <button type="button" onClick={() => nudge(20)} disabled={x >= LIMIT}>
+          Move right
+        </button>
+        <button type="button" onClick={() => setX(0)} disabled={x === 0}>
+          Reset
+        </button>
       </div>
-      <p aria-live="polite">{announcement}</p>
+      <p aria-live="polite">Horizontal offset: {x} pixels.</p>
     </main>
   );
 }
@@ -73,27 +95,27 @@ export function ConstrainedTile() {
 
 ## How it works
 
-- The container ref is passed to §dragConstraints§. Motion measures its bounding box and limits the tile to that region.
-- §dragElastic={0.12}§ allows only a small stretch past the edge.
-- §dragMomentum={false}§ prevents release velocity from carrying the tile onward.
-- The tile is draggable on both axes. Change §drag§ to §drag="x"§ to limit it horizontally.
-- §touchAction§ is limited to the gesture surface and tile. Test touch scrolling on a real narrow viewport.
-- The buttons are native keyboard-operable controls and communicate status through a polite live region. In a production interface, connect these controls to actual position changes; this simple demo emphasizes providing an equivalent non-drag operation.
+- The container ref is passed to `dragConstraints`. Motion measures its bounds and keeps the tile inside.
+- The tile uses `drag="x"`, so pointer movement is horizontal only.
+- `dragElastic={0.08}` allows a small stretch at the boundary; `dragMomentum={false}` stops release velocity from carrying it onward.
+- React state stores the committed horizontal offset. The keyboard-operable buttons update that value, and the Motion target animates to it.
+- At drag start, the example records the current offset. At drag end, it combines that starting position with the gesture offset and clamps the result to the same range used by the buttons.
+- Touch behavior is limited to the tile. The surrounding page remains normally scrollable.
 
-## Expected result and practice
+## Expected result and accessibility checks
 
-The tile moves inside the dashed panel and stops when released. It can stretch slightly past an edge and springs back. Try increasing elasticity, enabling momentum, or changing the panel height. Compare the feel without changing the constraint at the same time.
+Drag the tile horizontally inside the panel. The Move left and Move right buttons move the same tile in 20-pixel steps, and Reset returns it to the center. The buttons disable at the allowed ends. The live text reports the committed offset after a button action or completed drag.
 
-For a production keyboard alternative, store a normalized position in React state, update it through arrow-key buttons or a range control, and apply that value as the Motion target. Ensure pointer drag and keyboard updates use one coherent position model.
+Tab to each button and operate it with Enter or Space. Try pointer dragging on a touch device and verify the surrounding page can still scroll outside the tile.
 
-## Common mistakes
+## Practice and common mistakes
 
-- A constraint ref is attached to the tile instead of the bounding panel.
-- The tile has no measurable dimensions when Motion reads bounds.
-- Touch-action is disabled on the entire page instead of only the drag surface.
-- The example's status message is mistaken for moving the tile with the buttons; connect the controls to an explicit position model when using the pattern in an application.
-- Drag is used for a data-transfer task that requires native drop events.
-- Pointer dragging is the only way to perform a meaningful action.
+- Change `drag="x"` to `drag` and compare horizontal-only movement with two-axis movement.
+- Set elasticity to zero and compare the hard boundary.
+- Enable momentum and observe why the final offset may need to be read after inertia settles.
+- Keep the drag ref on the containing region and ensure its dimensions respond to the viewport.
+- Keep keyboard controls connected to the same position state as pointer movement.
+- Use native drag-and-drop instead when the task transfers files or data.
 
 ## Chapter navigation
 

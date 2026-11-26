@@ -2,7 +2,7 @@
 
 ## 1. Why is the exit target skipped when React removes a component?
 
-React normally removes it immediately. §AnimatePresence§ must remain mounted around the conditional child to retain the removed component until the exit completes.
+React normally removes it immediately. `AnimatePresence` must remain mounted around the conditional child to retain the removed component until the exit completes.
 
 ## 2. Where does the conditional expression belong?
 

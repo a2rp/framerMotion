@@ -1,6 +1,6 @@
 # AnimatePresence and exit animations
 
-React removes components as soon as they leave the rendered tree. §AnimatePresence§ detects that a direct child is leaving and retains it long enough for its §exit§ target to finish. It is the standard way to animate a component out of a React interface.
+React removes components as soon as they leave the rendered tree. `AnimatePresence` detects that a direct child is leaving and retains it long enough for its `exit` target to finish. It is the standard way to animate a component out of a React interface.
 
 ## Conditional exit
 
@@ -47,7 +47,7 @@ If a different content item replaces the old one in a single child slot, change 
 
 ## Initial behavior and frozen props
 
-By default, children present on first render can animate from their initial target. Set §initial={false}§ on AnimatePresence to suppress those initial animations, while keeping entry animations for children added later.
+By default, children present on first render can animate from their initial target. Set `initial={false}` on AnimatePresence to suppress those initial animations, while keeping entry animations for children added later.
 
 Once removed, an exiting component no longer receives updated props from React. If its final direction or value must reflect the same update that removed it, use the custom presence data described in the next chapter.
 

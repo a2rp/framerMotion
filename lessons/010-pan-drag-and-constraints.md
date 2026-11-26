@@ -4,7 +4,7 @@ Pan and drag both begin with pointer movement, but they solve different problems
 
 ## Pan callbacks
 
-A motion component can respond to pan lifecycle callbacks such as §onPanStart§, §onPan§, and §onPanEnd§. The callback receives the pointer event and an information object with values such as point, offset, and velocity.
+A motion component can respond to pan lifecycle callbacks such as `onPanStart`, `onPan`, and `onPanEnd`. The callback receives the pointer event and an information object with values such as point, offset, and velocity.
 
 ~~~jsx
 <motion.div
@@ -14,11 +14,11 @@ A motion component can respond to pan lifecycle callbacks such as §onPanStart§
 />
 ~~~
 
-Pan is recognized after the pointer travels beyond a small movement threshold. For touch input, set an appropriate CSS §touch-action§ value so browser scrolling does not take over the axis you intend to handle. Do not disable page scrolling globally for a small gesture region.
+Pan is recognized after the pointer travels beyond a small movement threshold. For touch input, set an appropriate CSS `touch-action` value so browser scrolling does not take over the axis you intend to handle. Do not disable page scrolling globally for a small gesture region.
 
 ## Drag and axis control
 
-Set §drag§ to allow movement on both axes, or use §drag="x"§ and §drag="y"§ to limit the gesture. Motion applies movement through transforms, which generally avoids repeatedly changing layout.
+Set `drag` to allow movement on both axes, or use `drag="x"` and `drag="y"` to limit the gesture. Motion applies movement through transforms, which generally avoids repeatedly changing layout.
 
 ~~~jsx
 <motion.div drag="x" dragMomentum={false} />
@@ -37,23 +37,23 @@ Pixel constraints limit movement relative to the element's origin:
 />
 ~~~
 
-For a responsive containment area, pass a React ref to the container as §dragConstraints§. Motion measures the container and draggable bounds and keeps the item within that region. Make the container's geometry meaningful and ensure the draggable element has a real rendered size.
+For a responsive containment area, pass a React ref to the container as `dragConstraints`. Motion measures the container and draggable bounds and keeps the item within that region. Make the container's geometry meaningful and ensure the draggable element has a real rendered size.
 
 Constraints are measured from layout. If the container or draggable element changes size, check the result at the new dimensions. A ref-based constraint is easier to keep responsive than recalculating pixel bounds from the viewport.
 
 ## Elasticity and release behavior
 
-By default, movement can stretch beyond the constraint and spring back. §dragElastic§ controls how much movement is allowed beyond an edge: zero prevents elastic overshoot; a larger value permits more. Use a small amount for a soft boundary, or disable elasticity for strict containment.
+By default, movement can stretch beyond the constraint and spring back. `dragElastic` controls how much movement is allowed beyond an edge: zero prevents elastic overshoot; a larger value permits more. Use a small amount for a soft boundary, or disable elasticity for strict containment.
 
-§dragMomentum§ controls whether pointer velocity continues into an inertia animation on release. Turning it off makes position easier to predict. When momentum is enabled, §dragTransition§ can customize the inertia and bounce behavior. Use these settings to match the surface and task, not just to make movement dramatic.
+`dragMomentum` controls whether pointer velocity continues into an inertia animation on release. Turning it off makes position easier to predict. When momentum is enabled, `dragTransition` can customize the inertia and bounce behavior. Use these settings to match the surface and task, not just to make movement dramatic.
 
-Callbacks such as §onDragStart§, §onDrag§, and §onDragEnd§ can synchronize a drag with application logic. The info object includes the pointer's movement and velocity. Avoid updating React state on every drag frame unless that state is needed by React; Motion values are better for frame-by-frame visual values.
+Callbacks such as `onDragStart`, `onDrag`, and `onDragEnd` can synchronize a drag with application logic. The info object includes the pointer's movement and velocity. Avoid updating React state on every drag frame unless that state is needed by React; Motion values are better for frame-by-frame visual values.
 
 ## Start dragging from a handle
 
-§useDragControls§ can start a drag from a separate pointer target. Call §controls.start(event)§ from its pointer-down handler and pass the controls into the draggable component. Set §dragListener={false}§ when the draggable element itself must not initiate a drag.
+`useDragControls` can start a drag from a separate pointer target. Call `controls.start(event)` from its pointer-down handler and pass the controls into the draggable component. Set `dragListener={false}` when the draggable element itself must not initiate a drag.
 
-A drag handle on touch should set §touch-action: none§ so the browser does not interpret the same touch as page scrolling. Add a visible handle and instructions. A custom drag interaction is not automatically a complete keyboard interaction: provide buttons, a range input, or another keyboard-accessible way to accomplish the same task.
+A drag handle on touch should set `touch-action: none` so the browser does not interpret the same touch as page scrolling. Add a visible handle and instructions. A custom drag interaction is not automatically a complete keyboard interaction: provide buttons, a range input, or another keyboard-accessible way to accomplish the same task.
 
 ## Touch and accessibility
 
@@ -66,11 +66,11 @@ A drag handle on touch should set §touch-action: none§ so the browser does not
 
 ## Common mistakes
 
-- **Expecting pan to move the element:** pan reports a gesture; use §drag§ to move the component.
-- **Unexpected page scrolling:** configure §touch-action§ on the intended gesture surface.
+- **Expecting pan to move the element:** pan reports a gesture; use `drag` to move the component.
+- **Unexpected page scrolling:** configure `touch-action` on the intended gesture surface.
 - **Bad constraints:** ensure the constraint ref is attached to the correct container and the child has measurable dimensions.
-- **Excessive overshoot:** reduce §dragElastic§ or disable it.
-- **Surprising release movement:** set §dragMomentum={false}§ when inertia is not desired.
+- **Excessive overshoot:** reduce `dragElastic` or disable it.
+- **Surprising release movement:** set `dragMomentum={false}` when inertia is not desired.
 - **State updates every frame:** prefer Motion values or end callbacks unless React needs each sample.
 - **Pointer-only control:** supply an accessible keyboard alternative for meaningful drag operations.
 - **Using element drag for data transfer:** use native drag-and-drop for files and data payloads.

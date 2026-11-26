@@ -4,9 +4,9 @@ This example switches through a small slide deck. AnimatePresence uses wait mode
 
 ## Setup
 
-Install Motion with §npm install motion§. Save as §src/DirectionalSlides.jsx§ and render §<DirectionalSlides />§.
+Install Motion with `npm install motion`. Save as `src/DirectionalSlides.jsx` and render `<DirectionalSlides />`.
 
-## §src/DirectionalSlides.jsx§
+## `src/DirectionalSlides.jsx`
 
 ~~~jsx
 import { useState } from "react";
