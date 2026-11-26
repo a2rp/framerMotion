@@ -48,11 +48,11 @@ function NoticeControl() {
         {open ? "Hide notice" : "Show notice"}
       </button>
 
-      <AnimatePresence initial={false}>
+      <div id="reading-notice">
+        <AnimatePresence initial={false}>
         {open && (
           <motion.aside
             key="reading-notice"
-            id="reading-notice"
             role="status"
             initial={{ opacity: 0, y: travel }}
             animate={{ opacity: 1, y: 0 }}
@@ -77,6 +77,7 @@ function NoticeControl() {
           </motion.aside>
         )}
       </AnimatePresence>
+      </div>
     </main>
   );
 }
